@@ -9,7 +9,7 @@ export const CONFIG = {
    *  그 전에 넣으면 포스기 신청이 토스 탭·토스 알림으로 들어갑니다)
    * 비워두면 "테스트 모드"로 동작합니다 (화면 흐름만 확인, 실제 전송 안 됨).
    */
-  FORM_ENDPOINT: "",
+  FORM_ENDPOINT: "https://script.google.com/macros/s/AKfycbwNtV2k8VgZqCxJ-uj7SxF0V_XyBKWrPEUNocFY6NQvfqbyBxF3R1pZ1aJ93N39L-S5/exec",
 
   /** 이 페이지 이름표. 시트 탭·누적 조회수를 페이지별로 나눌 때 씁니다. (apps-script/Code.gs 의 PAGES 와 같은 값) */
   PAGE_ID: "poss",

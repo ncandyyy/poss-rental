@@ -73,11 +73,10 @@ npx serve public
 - **Git 연결**: 넷리파이에서 이 저장소를 연결하면 `netlify.toml` 대로 `public` 폴더가 배포됩니다. 빌드 명령 없음.
 - **드래그 앤 드롭**: https://app.netlify.com/drop 에 `public` 폴더를 끌어다 놓아도 됩니다.
 
-## 지금 상태 (디자인·문구 컨펌용)
+## 지금 상태
 
-- **시트·슬랙 미연결**: `public/js/config.js` 의 `FORM_ENDPOINT` 가 비어 있어 테스트 모드입니다.
-  신청 폼은 끝까지 눌러볼 수 있지만 실제 전송은 안 되고, 상단 바는 숫자 없이 "많은 사장님이 관심있게 보고 있어요"로 나옵니다.
-- **네이버 전환 스크립트 미설치**: 컨펌 중 방문이 통계에 섞이지 않도록 빼두었습니다 (`index.html` 맨 아래 TODO).
+- **시트·슬랙 연결됨**: 토스·커넥트와 같은 시트·같은 접수 주소를 쓰고, `PAGE_ID: "poss"` 로 `포스기 신청목록` 탭 + 포스기 슬랙 워크플로로 들어갑니다. 상단 바에는 실제 누적 조회수가 나옵니다.
+- **네이버 전환 스크립트 미설치**: `index.html` 맨 아래 TODO.
 - 피그마 문구 중 오타로 보이는 곳은 고쳐서 넣었습니다. 원문 그대로가 맞다면 `index.html` 에서 되돌리면 됩니다.
   - 히어로 알약 `월 이용로 0원~` → `월 이용료 0원~`
   - 후기 제목 `대표님들이 페이앤밴이 상담 하고 있어요` → `대표님들이 페이앤밴과 상담하고 있어요`
@@ -87,8 +86,7 @@ npx serve public
 
 ## 오픈 전 체크리스트
 
-- [ ] `public/js/config.js` 의 `FORM_ENDPOINT` 에 Apps Script 웹 앱 주소 넣기 → [docs/form-setup.md](docs/form-setup.md)
-      (토스·커넥트와 같은 시트·같은 주소를 쓰고 `PAGE_ID: "poss"` 로 `포스기 신청목록` 탭에 따로 쌓입니다. **반드시 Apps Script 에 poss 를 추가해 배포한 뒤에** 주소를 넣으세요)
+- [x] `public/js/config.js` 의 `FORM_ENDPOINT` 연결 (토스·커넥트와 같은 주소, 설정 방법: [docs/form-setup.md](docs/form-setup.md))
 - [ ] 네이버 공통 스크립트 넣기 (`index.html` 맨 아래 TODO). 신청완료(lead) 전환은 `js/modules/analytics.js` 가 접수 순간 전송
 - [ ] 개인정보 수집·이용 동의 문구 확인 (`index.html` 의 `consent-detail`)
 - [ ] 이용약관 / 개인정보처리방침 / 이메일무단수집거부 링크 주소 넣기 (`index.html` 푸터 TODO, 지금은 "준비 중" 안내)
