@@ -88,7 +88,7 @@ npx serve public
 ## 오픈 전 체크리스트
 
 - [ ] `public/js/config.js` 의 `FORM_ENDPOINT` 에 Apps Script 웹 앱 주소 넣기 → [docs/form-setup.md](docs/form-setup.md)
-      (신청 접수 + 상단 바 누적 조회수가 같은 주소를 씁니다. toss-rental / connect-rental 과 **다른 시트**를 쓰려면 새로 배포한 주소를 넣으세요)
+      (토스·커넥트와 같은 시트·같은 주소를 쓰고 `PAGE_ID: "poss"` 로 `포스기 신청목록` 탭에 따로 쌓입니다. **반드시 Apps Script 에 poss 를 추가해 배포한 뒤에** 주소를 넣으세요)
 - [ ] 네이버 공통 스크립트 넣기 (`index.html` 맨 아래 TODO). 신청완료(lead) 전환은 `js/modules/analytics.js` 가 접수 순간 전송
 - [ ] 개인정보 수집·이용 동의 문구 확인 (`index.html` 의 `consent-detail`)
 - [ ] 이용약관 / 개인정보처리방침 / 이메일무단수집거부 링크 주소 넣기 (`index.html` 푸터 TODO, 지금은 "준비 중" 안내)

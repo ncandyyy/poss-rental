@@ -240,6 +240,7 @@ export function initApplyForm() {
       submittedAt: new Date().toISOString(),
       userAgent: navigator.userAgent,
       website: form.elements.website.value,
+      page: CONFIG.PAGE_ID,
       ...getAttribution(),
     };
   }

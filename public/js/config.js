@@ -4,10 +4,15 @@
 export const CONFIG = {
   /**
    * 신청서를 받을 Google Apps Script 웹 앱 주소 (https://script.google.com/macros/s/.../exec)
-   * 설정 방법: docs/form-setup.md
+   * 토스 렌탈·네이버 커넥트와 같은 시트·같은 주소를 씁니다. 신청은 PAGE_ID 로 구분돼 '포스기 신청목록' 탭에 따로 쌓입니다.
+   * 설정 방법: docs/form-setup.md  (먼저 Apps Script 의 PAGES 에 poss 를 추가해 새 버전으로 배포한 뒤에 주소를 넣어주세요.
+   *  그 전에 넣으면 포스기 신청이 토스 탭·토스 알림으로 들어갑니다)
    * 비워두면 "테스트 모드"로 동작합니다 (화면 흐름만 확인, 실제 전송 안 됨).
    */
   FORM_ENDPOINT: "",
+
+  /** 이 페이지 이름표. 시트 탭·누적 조회수를 페이지별로 나눌 때 씁니다. (apps-script/Code.gs 의 PAGES 와 같은 값) */
+  PAGE_ID: "poss",
 
   /** 업종 선택 목록 */
   BUSINESS_TYPES: [

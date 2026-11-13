@@ -10,8 +10,8 @@
  */
 import { CONFIG } from "../config.js";
 
-const SEEN_KEY = "paydv:view-counted";
-const CACHE_KEY = "paydv:view-total";
+const SEEN_KEY = "poss:view-counted";
+const CACHE_KEY = "poss:view-total";
 const TIMEOUT_MS = 8000;
 
 export async function initViewCounter() {
@@ -45,6 +45,7 @@ export async function initViewCounter() {
 async function fetchTotal(action) {
   const url = new URL(CONFIG.FORM_ENDPOINT);
   url.searchParams.set("action", action);
+  if (CONFIG.PAGE_ID) url.searchParams.set("page", CONFIG.PAGE_ID); // 페이지별 조회수
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
   try {
