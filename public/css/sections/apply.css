@@ -4,6 +4,8 @@
 .apply {
   /* 비교 카드 묶음(폭 645) 전용 단위: 좁은 화면에서는 양옆 여백 28px 를 남기고 꽉 채웁니다 */
   --uc: min(1px, calc((100vw - 56px) / 645));
+  /* 위 여백은 margin 이 아니라 padding 으로: margin 이면 섹션 밖으로 빠져나가 위 섹션과의 사이에 빈 띠가 생깁니다 */
+  padding-top: max(48px, calc(117 * var(--u)));
   padding-bottom: max(96px, calc(54 * var(--u)));
   background:
     radial-gradient(calc(950 * var(--u)) calc(1079 * var(--u)) at 50% 0, rgb(69 147 252), rgb(69 147 252 / 0)),
@@ -14,7 +16,6 @@
 .apply__tags {
   position: relative;
   height: max(64px, calc(100 * var(--u)));
-  margin-top: max(48px, calc(117 * var(--u)));
 }
 
 .apply__tag {
