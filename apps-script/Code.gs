@@ -26,8 +26,6 @@
  *  viewKey  : 누적 조회수를 저장하는 스크립트 속성 이름
  *  slackKey : 이 페이지 알림을 보낼 슬랙 워크플로 웹훅 주소를 넣어둔 스크립트 속성 이름
  *             (비어 있으면 기본 SLACK_WEBHOOK_URL 로 보냅니다 → 알림이 빠지지 않게)
- *  slackUrl : (선택) 슬랙 웹훅 주소를 스크립트 속성 대신 여기에 직접 적어둘 때. 스크립트 속성(slackKey)이 있으면 그쪽이 우선입니다.
- *             ⚠ 주소는 비밀번호와 같습니다. 시트의 Apps Script 편집기에만 적고, 공개 저장소(GitHub)에는 올리지 마세요.
  *  color    : 탭 머리글 배경색
  */
 const PAGES = {
@@ -56,7 +54,6 @@ const PAGES = {
     sheet: '포스기 신청목록',
     viewKey: 'VIEW_COUNT_POSS',
     slackKey: 'SLACK_WEBHOOK_URL_POSS',
-    slackUrl: '', // ← 시트의 Apps Script 편집기에서만 채웁니다 (저장소에는 비워둠)
     color: '#fff4e0',
   },
 };
@@ -232,7 +229,7 @@ const SLACK_FIELDS = ['receivedAt', 'storeStatus', 'industry', 'phone', 'contact
 function notifySlack_(d, page, sheet, rowNumber, receivedAt) {
   // 페이지 전용 워크플로가 있으면 그쪽으로, 없으면 기본 워크플로로 보냅니다 (알림이 빠지지 않게)
   const props = PropertiesService.getScriptProperties();
-  const url = props.getProperty(page.slackKey) || page.slackUrl || props.getProperty('SLACK_WEBHOOK_URL');
+  const url = props.getProperty(page.slackKey) || props.getProperty('SLACK_WEBHOOK_URL');
   if (!url) return;
 
   const values = {

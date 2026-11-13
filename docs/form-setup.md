@@ -44,7 +44,6 @@
        sheet: '포스기 신청목록',
        viewKey: 'VIEW_COUNT_POSS',
        slackKey: 'SLACK_WEBHOOK_URL_POSS',
-       slackUrl: '', // 3번처럼 스크립트 속성에 넣는 대신, 여기에 웹훅 주소를 직접 적어도 됩니다 (시트 편집기에서만!)
        color: '#fff4e0',
      },
    ```
@@ -55,12 +54,6 @@
    function testSubmitPoss() {
      testSubmit_('poss');
    }
-   ```
-
-   그리고 `notifySlack_` 안의 주소 고르는 줄을 이렇게 바꿉니다 (`page.slackUrl` 추가)
-
-   ```js
-   const url = props.getProperty(page.slackKey) || page.slackUrl || props.getProperty('SLACK_WEBHOOK_URL');
    ```
 
    - 시트 쪽 코드를 직접 고친 적이 없다면, 이 저장소의 [`apps-script/Code.gs`](../apps-script/Code.gs) 를 통째로 붙여넣어도 결과는 같습니다.
