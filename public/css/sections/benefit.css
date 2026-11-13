@@ -1,0 +1,191 @@
+/* =========================================================
+   01 혜택 쏟아짐 → 0원 — "사장님은 장사에만 신경쓰세요! 나머지는 저희가 할게요"
+   쏟아지는 알약·이모지는 css/components/drop.css + js/modules/drop.js
+   ========================================================= */
+.benefit {
+  /* 세로 간격이 너무 좁아지지 않도록 하는 세로 전용 단위 */
+  --uy: max(var(--u), 0.5px);
+  background: linear-gradient(180deg, var(--blue-100) 0%, var(--white) 61.06%);
+}
+
+.benefit__inner {
+  padding-top: max(56px, calc(109 * var(--u)));
+  padding-bottom: max(28px, calc(59 * var(--u)));
+}
+
+.benefit__title {
+  position: relative;
+  font-weight: 800;
+  font-size: max(23px, calc(40 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--grey-800);
+}
+
+.benefit__title-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;
+}
+
+/* 알통 이모지: 불끈불끈 */
+.benefit__title-row img {
+  width: 0.875em;
+  height: auto;
+  transform-origin: 30% 90%;
+  animation: flex-arm 2.4s var(--ease-in-out) infinite;
+}
+
+@keyframes flex-arm {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0) scale(1);
+  }
+
+  70% {
+    transform: rotate(-12deg) scale(1.12);
+  }
+
+  80% {
+    transform: rotate(4deg) scale(1);
+  }
+
+  90% {
+    transform: rotate(-8deg) scale(1.1);
+  }
+}
+
+/* 카드 아래 안내 문구: 기기 이미지의 바닥 반사 위에 겹쳐 놓입니다 */
+.benefit__note {
+  position: relative;
+  z-index: 1;
+  margin-top: max(20px, calc(42 * var(--u)));
+  padding-inline: var(--gutter);
+}
+
+/* ---------- 해결 카드 ---------- */
+.solution {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(768 * var(--u));
+  margin: calc(8 * var(--u)) auto 0;
+  padding-top: max(36px, calc(64 * var(--u)));
+  border-radius: max(20px, calc(36 * var(--u)));
+  background: var(--white);
+  text-align: center;
+}
+
+.solution__eyebrow {
+  font-weight: 600;
+  padding-inline: 12px;
+  font-size: max(14px, calc(28 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--grey-600);
+}
+
+.solution__title {
+  margin-top: max(8px, calc(16 * var(--u)));
+  padding-inline: 12px;
+  font-weight: 800;
+  font-size: max(22px, calc(48 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--grey-800);
+}
+
+.text-grad-paydv {
+  background: linear-gradient(90deg, var(--blue-100) 0%, var(--blue-600) 62.5%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.solution__boxes {
+  display: flex;
+  gap: calc(16 * var(--u));
+  margin-top: max(24px, calc(56 * var(--u)));
+}
+
+.zero-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(10 * var(--u));
+  width: calc(316 * var(--u));
+  height: calc(282 * var(--u));
+  min-height: 120px;
+  border: 1px solid rgb(232 243 255 / 0.6);
+  border-radius: max(14px, calc(24 * var(--u)));
+  background:
+    radial-gradient(70% 220% at 100% 0%, rgb(69 147 252 / 0.2), rgb(144 194 255 / 0)),
+    radial-gradient(44% 147% at 50% 94%, rgb(69 147 252 / 0.2), rgb(144 194 255 / 0)),
+    var(--blue-100);
+}
+
+.zero-box__label {
+  font-weight: 700;
+  font-size: max(16px, calc(40 * var(--u)));
+  line-height: 1.2;
+  color: var(--blue-500);
+  white-space: nowrap;
+}
+
+.zero-box__value {
+  display: flex;
+  font-weight: 800;
+  font-size: max(44px, calc(100.14 * var(--u)));
+  line-height: 1.15;
+  filter: drop-shadow(0 0 calc(20 * var(--u)) rgb(255 255 255 / 0.71));
+}
+
+.grad-zero {
+  display: block;
+  background: linear-gradient(180deg, var(--blue-200), var(--blue-500));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 숫자가 슬롯처럼 굴러가다 0에서 멈춥니다 */
+.roll {
+  display: inline-block;
+  height: 1.15em;
+  overflow: hidden;
+}
+
+.roll__col {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(calc(-100% + 1.15em));
+  transition: transform 1.8s cubic-bezier(0.15, 0.85, 0.25, 1) var(--delay, 0.2s);
+}
+
+.roll__col > span {
+  height: 1.15em;
+}
+
+.js .zero-box:not(.is-in) .roll__col {
+  transform: translateY(0);
+  transition: none;
+}
+
+/* 카드 아래쪽 기기 세트 이미지 (0원 박스와 95px 겹치고, 카드 밖으로 80px 내려옵니다) */
+.solution__devices {
+  position: relative;
+  align-self: center;
+  flex: none;
+  width: calc(860 * var(--u));
+  height: calc(504 * var(--u));
+  margin: calc(-95 * var(--u)) calc(-46 * var(--u)) 0;
+  pointer-events: none;
+}
+
+.solution__devices img {
+  height: auto;
+}

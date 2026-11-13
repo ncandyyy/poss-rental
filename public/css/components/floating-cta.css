@@ -1,0 +1,77 @@
+/* =========================================================
+   하단 고정 상담 버튼 (배경 없이 버튼만) — 히어로를 지나면 나타나고, 신청 폼이 보이면 숨습니다.
+   ========================================================= */
+.floating-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-cta);
+  padding: 0 var(--gutter) calc(14px + env(safe-area-inset-bottom));
+  translate: 0 130%;
+  transition: translate 0.45s var(--ease-out);
+  pointer-events: none;
+}
+
+.floating-cta.is-show {
+  translate: 0 0;
+}
+
+/* 투명한 양옆 영역은 아래 페이지 클릭을 막지 않도록, 클릭은 버튼에서만 받습니다 */
+.floating-cta.is-show .floating-cta__btn {
+  pointer-events: auto;
+}
+
+.floating-cta__btn {
+  max-width: calc(var(--container) - var(--gutter) * 2);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--blue-500);
+  box-shadow: 0 8px 24px rgb(49 130 246 / 0.3);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  transition:
+    background-color 0.2s,
+    scale 0.15s var(--ease-out);
+}
+
+.floating-cta__btn:hover {
+  background: var(--blue-600);
+}
+
+.floating-cta__btn:active {
+  scale: 0.98;
+}
+
+/* 은은하게 반짝이는 빛 */
+.floating-cta__btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.floating-cta__btn::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -40%;
+  width: 30%;
+  background: linear-gradient(100deg, transparent, rgb(255 255 255 / 0.35), transparent);
+  animation: cta-shine 3.2s var(--ease-in-out) infinite;
+}
+
+@keyframes cta-shine {
+  0%,
+  55% {
+    translate: 0 0;
+  }
+
+  100% {
+    translate: 520% 0;
+  }
+}

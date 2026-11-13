@@ -1,0 +1,209 @@
+/* =========================================================
+   04 혜택 비교 + 상담 신청
+   ========================================================= */
+.apply {
+  /* 비교 카드 묶음(폭 645) 전용 단위: 좁은 화면에서는 양옆 여백 28px 를 남기고 꽉 채웁니다 */
+  --uc: min(1px, calc((100vw - 56px) / 645));
+  padding-bottom: max(96px, calc(54 * var(--u)));
+  background:
+    radial-gradient(calc(950 * var(--u)) calc(1079 * var(--u)) at 50% 0, rgb(69 147 252), rgb(69 147 252 / 0)),
+    var(--grey-900);
+}
+
+/* ---------- 기울어진 태그 2개 ---------- */
+.apply__tags {
+  position: relative;
+  height: max(64px, calc(100 * var(--u)));
+  margin-top: max(48px, calc(117 * var(--u)));
+}
+
+.apply__tag {
+  position: absolute;
+  left: calc(var(--cx) * var(--u));
+  top: calc(var(--cy) * var(--u));
+  transform: translate(-50%, -50%) rotate(var(--r));
+}
+
+.apply__tag .tag {
+  transform-origin: 50% 50%;
+}
+
+/* 피그마는 파란 띠를 어두운 배경에 '곱하기'로 얹습니다. 글자까지 어두워지지 않도록 곱해진 결과 색을 직접 씁니다 */
+.apply__tag .tag::before {
+  background: linear-gradient(90deg, #1445c6, #2a66d8);
+}
+
+.js .apply__tags .tag {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.7s var(--ease-in-out) var(--delay, 0s);
+}
+
+.js .apply__tags.is-in .tag {
+  clip-path: inset(0 0 0 0);
+}
+
+/* 좁은 화면: 두 태그를 가운데에 겹쳐 붙입니다 (디자인과 같은 모양) */
+@media (max-width: 599px) {
+  .apply__tags {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 14px 0 6px;
+  }
+
+  .apply__tag {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: translateY(var(--my, 0px)) rotate(var(--r));
+  }
+
+  .apply__tag:nth-child(2) {
+    --my: -5px;
+    margin-left: -12px;
+  }
+}
+
+.apply__title {
+  margin-top: max(20px, calc(34 * var(--u)));
+  font-weight: 800;
+  font-size: max(26px, calc(48 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--blue-100);
+}
+
+/* ---------- 비교 카드 ---------- */
+.compare {
+  position: relative;
+  width: calc(645 * var(--uc));
+  height: calc(637.1 * var(--uc));
+  margin: max(32px, calc(57 * var(--u))) auto 0;
+}
+
+.compare__card {
+  position: absolute;
+  top: calc(var(--y) * var(--uc));
+  left: calc(var(--x) * var(--uc));
+  width: calc(var(--w) * var(--uc));
+}
+
+.compare__card--other {
+  z-index: 1;
+}
+
+.compare__card--paydv {
+  z-index: 2;
+  border-radius: calc(16 * var(--uc));
+  box-shadow: 0 0 60px rgb(232 243 255 / 0.55);
+}
+
+.compare__img {
+  width: 100%;
+  height: auto;
+  border-radius: calc(16 * var(--uc));
+}
+
+.compare__card--other .compare__img {
+  opacity: 0.8;
+}
+
+.compare__brand {
+  display: grid;
+  place-items: center;
+  height: calc(58.1 * var(--uc));
+  border-radius: calc(16 * var(--uc));
+  background: var(--white);
+}
+
+.compare__brand img {
+  width: calc(135 * var(--uc));
+  height: auto;
+}
+
+.compare__list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--uc));
+  padding: calc(20 * var(--uc)) 0;
+  border-radius: calc(16 * var(--uc));
+  background: var(--white);
+  overflow: hidden;
+}
+
+.compare__card--other .compare__list {
+  gap: calc(15.86 * var(--uc));
+  padding: calc(19.8 * var(--uc)) 0;
+  background: var(--grey-200);
+  opacity: 0.8;
+}
+
+.compare__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 0 calc(36 * var(--uc));
+  font-weight: 600;
+  font-size: max(11.5px, calc(20 * var(--uc)));
+  line-height: 1.2;
+  color: var(--grey-600);
+  text-align: right;
+}
+
+.compare__card--other .compare__item {
+  padding: 0 calc(35.7 * var(--uc));
+  font-size: max(11.5px, calc(19.8 * var(--uc)));
+}
+
+.compare__item + .compare__item {
+  padding-top: calc(16 * var(--uc));
+  border-top: 1px solid var(--grey-100);
+}
+
+.compare__card--other .compare__item + .compare__item {
+  padding-top: calc(15.86 * var(--uc));
+  border-top-color: var(--grey-400);
+}
+
+.compare__check {
+  flex: none;
+  width: max(14px, calc(24 * var(--uc)));
+  height: max(14px, calc(24 * var(--uc)));
+}
+
+/* 페이앤밴 체크 아이콘이 차례로 그려집니다 */
+.compare__check use {
+  stroke-dasharray: 80;
+  stroke-dashoffset: 0;
+}
+
+.js .compare__card--paydv:not(.is-in) .compare__check use {
+  stroke-dashoffset: 80;
+}
+
+.compare__card--paydv .compare__check use {
+  transition: stroke-dashoffset 0.9s var(--ease-out) calc(0.35s + var(--i, 0) * 0.12s);
+}
+
+@media (max-width: 599px) {
+  .compare__item,
+  .compare__card--other .compare__item {
+    gap: 4px;
+    padding-inline: calc(22 * var(--uc));
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ---------- 신청 폼 ---------- */
+.apply .apply-form {
+  margin-top: max(36px, calc(57 * var(--u)));
+}
+
+@media (min-width: 861px) {
+  .apply {
+    padding-bottom: 96px;
+  }
+}

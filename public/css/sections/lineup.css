@@ -1,0 +1,311 @@
+/* =========================================================
+   03 기기 라인업 — 윈도우 포스(+앱 아이콘) / 기능 캐러셀 / 토스 프론트 / 토스 터미널
+   ========================================================= */
+.lineup {
+  padding-top: max(56px, calc(96 * var(--u)));
+  background: var(--grey-50);
+}
+
+.lineup__eyebrow {
+  font-weight: 600;
+  font-size: max(14px, calc(24 * var(--u)));
+  line-height: 1.2;
+  text-align: center;
+  color: var(--grey-600);
+}
+
+.lineup__title {
+  margin-top: max(12px, calc(31 * var(--u)));
+  font-weight: 800;
+  font-size: max(26px, calc(48 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.lineup__title > span {
+  display: block;
+}
+
+/* 기기별 소개 공통 */
+.feature__title {
+  font-weight: 800;
+  font-size: max(21px, calc(32 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--grey-800);
+}
+
+.feature__title em {
+  color: var(--blue-500);
+}
+
+.feature__desc {
+  margin-top: max(6px, calc(8 * var(--u)));
+  font-weight: 600;
+  font-size: max(14px, calc(20 * var(--u)));
+  line-height: 1.3;
+  color: var(--grey-600);
+}
+
+/* ---------- 윈도우 포스 ---------- */
+.feature-pos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: max(16px, calc(24 * var(--u)));
+  margin-top: max(48px, calc(105 * var(--u)));
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+
+.feature-pos .feature__desc {
+  margin-top: max(8px, calc(16 * var(--u)));
+}
+
+.feature-pos .feature__desc strong {
+  font-weight: 800;
+}
+
+.feature-pos__img {
+  width: max(250px, calc(401 * var(--u)));
+  height: auto;
+}
+
+/* 함께 쓰는 앱 아이콘 5개 */
+.app-row {
+  /* 아이콘이 너무 작아지지 않도록 하는 전용 단위 */
+  --ua: max(var(--u), 0.58px);
+  display: flex;
+  justify-content: center;
+  gap: calc(10 * var(--ua));
+}
+
+.app-tile {
+  position: relative;
+  flex: none;
+  width: calc(92.5 * var(--ua));
+  height: calc(92.5 * var(--ua));
+  border: 1px solid var(--grey-100);
+  border-radius: calc(22.9 * var(--ua));
+  background: var(--white);
+  overflow: hidden;
+}
+
+.app-tile.is-in {
+  animation: bob 4.2s var(--ease-in-out) var(--bob, 0s) infinite;
+}
+
+.app-tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 아이콘 주변 흰 여백 (피그마 배치 그대로) */
+.app-tile--pad-s img {
+  inset: 9.6%;
+  width: 80.8%;
+  height: 80.8%;
+}
+
+.app-tile--pad-l img {
+  inset: 17.7%;
+  width: 64.6%;
+  height: 64.6%;
+}
+
+.app-tile--zoom img {
+  inset: -3.95%;
+  width: 107.9%;
+  height: 107.9%;
+}
+
+.app-tile--bare {
+  border: 0;
+  background: none;
+}
+
+/* ---------- 기능 캐러셀 ----------
+   화면 양옆 끝까지 채운 어두운 띠. 슬라이드 안 글/이미지는 가운데 860px 칼럼 기준으로 배치됩니다. */
+.fc-wrap {
+  position: relative;
+  margin-top: max(48px, calc(104 * var(--u)));
+}
+
+.fc-wrap .fc {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.fc-wrap .fc__slide {
+  padding-inline: max(0px, calc((100% - var(--container)) / 2));
+}
+
+.fc-wrap .fc__pager {
+  right: calc((100% - min(100%, var(--container))) / 2 + max(20px, calc(73 * var(--u))));
+}
+
+/* ---------- 토스 프론트 ---------- */
+.front {
+  /* 좁은 화면에서 사용 장면 카드가 너무 작아지지 않도록 하는 단위 */
+  --uc: max(var(--u), 0.6px);
+  position: relative;
+  margin-top: max(48px, calc(81 * var(--u)));
+}
+
+.front__stage {
+  height: calc(463 * var(--u));
+}
+
+.front__text {
+  position: absolute;
+  z-index: 4;
+  left: calc(113 * var(--u));
+  top: calc(59 * var(--u));
+}
+
+.front__text .feature__desc {
+  margin-top: max(8px, calc(16 * var(--u)));
+}
+
+.front__screen {
+  z-index: 2;
+  height: auto;
+}
+
+.front__frame {
+  z-index: 3;
+  height: auto;
+  pointer-events: none;
+}
+
+/* 화면 속 이미지가 아주 천천히 위아래로 스크롤 */
+.front__screen-wrap {
+  z-index: 2;
+  height: calc(313 * var(--u));
+  overflow: hidden;
+  border-radius: calc(6 * var(--u));
+}
+
+/* 프론트 화면 속 첫 화면 슬라이드 (screen-slider.js) */
+.screen-slider__track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.75s var(--ease-in-out);
+  will-change: transform;
+}
+
+.screen-slider__track.is-jump {
+  transition: none;
+}
+
+.screen-slider__item {
+  flex: 0 0 100%;
+  height: 100%;
+}
+
+.screen-slider__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 프론트 사용 장면 카드 — 자동으로 흐르는 캐러셀 */
+.front__cards {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: calc(237 * var(--u));
+  width: calc(540 * var(--u));
+  -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent);
+  mask-image: linear-gradient(90deg, #000 78%, transparent);
+}
+
+.front__cards.marquee {
+  --gap: calc(7.3 * var(--uc));
+}
+
+.scene-card {
+  position: relative;
+  flex: none;
+  width: calc(199 * var(--uc));
+  height: calc(212 * var(--uc));
+  border-radius: calc(21.9 * var(--uc));
+  background: var(--grey-50);
+  overflow: hidden;
+}
+
+.scene-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scene-card--inset img {
+  position: absolute;
+  left: 15.73%;
+  top: 15.92%;
+  width: 67.87%;
+  height: 68.38%;
+  object-fit: contain;
+}
+
+.scene-card--wide img {
+  object-position: 38% 50%;
+}
+
+/* ---------- 토스 터미널 ---------- */
+.terminal {
+  position: relative;
+  margin-top: max(40px, calc(76 * var(--u)));
+}
+
+.terminal__stage {
+  height: calc(513 * var(--u));
+}
+
+.terminal__text {
+  position: absolute;
+  z-index: 3;
+  left: calc(113 * var(--u));
+  top: calc(13 * var(--u));
+}
+
+.terminal__img {
+  height: auto;
+  pointer-events: none;
+}
+
+.terminal__pill {
+  position: absolute;
+  z-index: 2;
+  left: calc(var(--cx) * var(--u));
+  top: calc(var(--cy) * var(--u));
+  transform: translate(-50%, -50%);
+  animation: bob 4s var(--ease-in-out) var(--bob, 0s) infinite;
+}
+
+/* ---------- 좁은 화면: 설명 글을 이미지 위로 분리 ---------- */
+@media (max-width: 599px) {
+  .front__text,
+  .terminal__text {
+    position: static;
+    padding: 0 var(--gutter) 0 max(24px, calc(113 * var(--u)));
+  }
+
+  .front__stage {
+    margin-top: 0;
+  }
+
+  /* 카드 줄을 기기 화면 높이의 가운데로 */
+  .front__cards {
+    top: calc(244.5 * var(--u) - 106 * var(--uc));
+  }
+
+  .terminal__stage {
+    margin-top: calc(-90 * var(--u));
+  }
+}

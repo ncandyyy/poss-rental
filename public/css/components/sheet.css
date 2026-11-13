@@ -1,0 +1,229 @@
+/* =========================================================
+   신청 창 — 하단 "무료 상담 신청하기" 버튼을 누르면 열립니다 (js/modules/apply-sheet.js)
+   휴대폰(600px 미만): 아래에서 올라오는 창 · 그 이상: 화면 가운데 창
+   ========================================================= */
+
+/* 창이 열려 있는 동안 뒤 페이지는 스크롤되지 않게
+   (스크롤바가 사라진 만큼 apply-sheet.js 가 오른쪽 여백을 채워 페이지가 옆으로 밀리지 않게 합니다) */
+html.is-sheet-open {
+  overflow: hidden;
+}
+
+.sheet {
+  width: min(560px, 100% - 48px);
+  max-width: none;
+  max-height: min(820px, 100vh - 64px);
+  max-height: min(820px, 100dvh - 64px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 24px;
+  background: var(--white);
+  color: inherit;
+  box-shadow: 0 24px 64px rgb(0 0 0 / 0.18);
+  overflow: hidden;
+}
+
+.sheet[open] {
+  display: flex;
+  flex-direction: column;
+  animation: sheet-pop-in 0.35s var(--ease-out) both;
+}
+
+/* 열리는 움직임이 끝난 뒤 (끌어내리기·닫기 움직임이 겹치지 않게) */
+.sheet.is-ready {
+  animation: none;
+}
+
+.sheet.is-closing {
+  animation: sheet-pop-out 0.2s ease-in both;
+}
+
+.sheet::backdrop {
+  background: rgb(25 31 40 / 0.5);
+}
+
+.sheet[open]::backdrop {
+  animation: backdrop-in 0.3s ease both;
+}
+
+.sheet.is-closing::backdrop {
+  animation: backdrop-out 0.25s ease both;
+}
+
+.sheet__head {
+  position: relative;
+  flex: none;
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 16px 0;
+}
+
+.sheet__handle {
+  display: none;
+}
+
+.sheet__close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--grey-100);
+  color: var(--grey-600);
+  transition: background-color 0.2s;
+}
+
+.sheet__close:hover {
+  background: var(--grey-200);
+}
+
+.sheet__close svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
+.sheet__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 창 자체가 흰 카드라서 폼의 카드 모양은 빼고 꽉 채웁니다. 스크롤 등장 효과 없이 바로 보이게 */
+.sheet .apply-form {
+  width: 100%;
+  margin: 0;
+  padding-top: 4px;
+  border-radius: 0;
+  box-shadow: none;
+  opacity: 1;
+  translate: none;
+  scale: none;
+}
+
+/* 폼이 창으로 옮겨간 동안 페이지에 남겨두는 빈 자리 (페이지 길이가 바뀌지 않게) */
+.sheet-placeholder {
+  width: 100%;
+}
+
+/* ---------- 휴대폰: 아래에서 올라오는 창 ---------- */
+@media (max-width: 599px) {
+  .sheet {
+    width: 100%;
+    max-height: calc(100vh - 48px);
+    max-height: calc(100dvh - 48px);
+    margin: auto 0 0;
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -8px 40px rgb(0 0 0 / 0.12);
+  }
+
+  .sheet[open] {
+    animation: sheet-up 0.45s cubic-bezier(0.32, 0.72, 0, 1) both;
+  }
+
+  .sheet.is-ready {
+    animation: none;
+  }
+
+  /* 손잡이를 끌어내리는 중 */
+  .sheet.is-dragging {
+    translate: 0 var(--drag-y, 0px);
+  }
+
+  /* 조금만 끌었다 놓으면 제자리로 */
+  .sheet.is-snapping {
+    animation: sheet-snap 0.3s var(--ease-out) both;
+  }
+
+  .sheet.is-closing {
+    animation: sheet-down 0.3s cubic-bezier(0.32, 0.72, 0, 1) both;
+  }
+
+  .sheet__head {
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 16px 0;
+    touch-action: none;
+    cursor: grab;
+  }
+
+  .sheet__handle {
+    display: block;
+    width: 40px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--grey-300);
+  }
+
+  .sheet__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .sheet .apply-form {
+    padding-top: 12px;
+  }
+}
+
+@keyframes sheet-pop-in {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+    scale: 0.97;
+  }
+}
+
+@keyframes sheet-pop-out {
+  to {
+    opacity: 0;
+    translate: 0 8px;
+    scale: 0.98;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    translate: 0 100%;
+  }
+}
+
+@keyframes sheet-down {
+  from {
+    translate: 0 var(--drag-y, 0px);
+  }
+
+  to {
+    translate: 0 100%;
+  }
+}
+
+@keyframes sheet-snap {
+  from {
+    translate: 0 var(--drag-y, 0px);
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes backdrop-out {
+  to {
+    opacity: 0;
+  }
+}

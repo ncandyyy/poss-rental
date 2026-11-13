@@ -1,0 +1,56 @@
+/* =========================================================
+   Marquee — 끝없이 흐르는 자동 캐러셀
+   JS(marquee.js)가 아이템을 복제해 [세트][세트] 로 만든 뒤
+   트랙을 정확히 한 세트만큼 이동시켜 이음매 없이 반복합니다.
+   ========================================================= */
+.marquee {
+  --gap: 16px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.marquee__track {
+  display: flex;
+  gap: var(--gap);
+  width: max-content;
+}
+
+.marquee.is-ready .marquee__track {
+  animation: marquee-move var(--duration, 30s) linear infinite;
+  animation-delay: var(--start, 0s);
+  will-change: transform;
+}
+
+.marquee[data-direction="right"].is-ready .marquee__track {
+  animation-direction: reverse;
+}
+
+/* 마우스를 올리거나 화면 밖이면 멈춤 */
+.marquee.is-paused .marquee__track,
+.marquee[data-hover-pause]:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-move {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(calc(-50% - var(--gap) / 2), 0, 0);
+  }
+}
+
+/* 모션 최소화: 자동 이동 대신 손으로 가로 스크롤 */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .marquee.is-ready .marquee__track {
+    animation: none;
+  }
+}

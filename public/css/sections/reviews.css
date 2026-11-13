@@ -1,0 +1,123 @@
+/* =========================================================
+   02 상담 실적 + 후기 — 후기 카드 2줄이 서로 반대 방향으로 흐릅니다 (자동 캐러셀)
+   ========================================================= */
+.reviews {
+  /* 카드가 너무 작아지지 않도록 하는 카드 전용 단위 */
+  --uc: max(var(--u), 0.62px);
+  padding: max(56px, calc(112 * var(--u))) 0 max(48px, calc(81 * var(--u)));
+  background:
+    radial-gradient(90% 130% at 0 0, rgb(27 100 218 / 0.58), rgb(27 100 218 / 0)),
+    var(--grey-900);
+}
+
+.reviews__title {
+  padding-inline: var(--gutter);
+  font-weight: 800;
+  font-size: max(24px, calc(48 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--white);
+}
+
+.reviews__title > span {
+  display: block;
+}
+
+.reviews__em {
+  background: linear-gradient(90deg, var(--blue-500), var(--blue-100));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 숫자 1,000 이 0부터 올라갑니다 (js/modules/count-up.js) */
+[data-count-up] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 그라데이션 글자 안의 숫자도 같은 그라데이션으로 */
+.reviews__em [data-count-up] {
+  color: var(--blue-500);
+}
+
+.reviews__note {
+  margin-top: max(14px, calc(26 * var(--u)));
+  color: rgb(255 255 255 / 0.7);
+}
+
+.reviews__rows {
+  display: flex;
+  flex-direction: column;
+  gap: calc(15 * var(--uc));
+  margin-top: max(28px, calc(58 * var(--u)));
+}
+
+.reviews__rows .marquee {
+  --gap: calc(8 * var(--uc));
+  /* 좌우만 잘라서, 마우스를 올렸을 때 떠오른 카드와 그림자가 위아래로 잘리지 않게 합니다 */
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+.reviews__rows .marquee:hover {
+  position: relative;
+  z-index: 1;
+}
+
+.review-card {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  min-width: calc(506 * var(--uc));
+  min-height: calc(205 * var(--uc));
+  padding: calc(32 * var(--uc));
+  border-radius: calc(16 * var(--uc));
+  background: var(--white);
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    translate 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease-out);
+}
+
+.review-card:hover {
+  translate: 0 -4px;
+  box-shadow: 0 12px 28px rgb(49 130 246 / 0.35);
+}
+
+/* 터치 기기는 탭한 뒤 hover 가 남아 카드가 떠 있는 채로 흐르지 않게 */
+@media (hover: none) {
+  .review-card:hover {
+    translate: none;
+    box-shadow: none;
+  }
+}
+
+.review-card__rating {
+  display: flex;
+  align-items: center;
+  gap: calc(13 * var(--uc));
+  font-size: max(12px, calc(16 * var(--uc)));
+  line-height: 1.2;
+  color: #3f4a44;
+}
+
+.review-card__stars {
+  color: var(--blue-500);
+  letter-spacing: 0.02em;
+}
+
+.review-card__meta {
+  margin-top: calc(7 * var(--uc));
+  font-size: max(12px, calc(16 * var(--uc)));
+  line-height: 1.2;
+  color: var(--grey-600);
+}
+
+.review-card__body {
+  margin-top: calc(24 * var(--uc));
+  font-size: max(13px, calc(20 * var(--uc)));
+  line-height: 1.2;
+  color: #0d1611;
+}

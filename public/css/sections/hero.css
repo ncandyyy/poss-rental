@@ -1,0 +1,187 @@
+/* =========================================================
+   00 히어로 — "잘 되는 매장의 기준 가볍게 시작해보세요" (어두운 배경)
+   ========================================================= */
+.hero {
+  background:
+    radial-gradient(calc(950 * var(--u)) calc(950 * var(--u)) at 50% 0, rgb(69 147 252), rgb(69 147 252 / 0)),
+    var(--grey-900);
+}
+
+.hero__inner {
+  padding-top: max(36px, calc(124 * var(--u)));
+}
+
+/* 말풍선: 톡 튀어나온 뒤 둥실둥실 */
+.hero__tooltip-wrap {
+  display: flex;
+  justify-content: center;
+  animation: bob 4s var(--ease-in-out) 1.2s infinite;
+}
+
+/* 타이틀 */
+.hero__title {
+  position: relative;
+  z-index: 0;
+  margin-top: max(14px, calc(21 * var(--u)));
+  font-weight: 700;
+  font-size: max(34px, calc(72.94 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--grey-50);
+}
+
+.hero__line {
+  position: relative;
+  display: block;
+}
+
+/* 두 번째 줄 뒤 형광펜: 왼쪽에서 오른쪽으로 그어집니다 */
+.hero__line--marker::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 0.371em;
+  width: 8.554em;
+  height: 0.604em;
+  background: rgb(69 147 252 / 0.7);
+  transform: translateX(-50%) rotate(-1.21deg);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.9s var(--ease-in-out) 0.55s;
+}
+
+.hero__line--marker.is-in::before {
+  clip-path: inset(0 0 0 0);
+}
+
+/* 혜택 알약 3개 */
+.hero__pills {
+  position: relative;
+  height: max(54px, calc(128 * var(--u)));
+  margin-top: calc(25.75 * var(--u));
+}
+
+.hero__pill {
+  position: absolute;
+  left: calc(var(--cx) * var(--u));
+  top: calc(var(--cy) * var(--u));
+  transform: translate(-50%, -50%) rotate(var(--r, 0deg));
+  animation: bob 4.5s var(--ease-in-out) var(--bob, 0s) infinite;
+}
+
+.hero__pill--top {
+  z-index: 2;
+}
+
+/* 마우스를 올리면 '폐업시 위약금 0원'처럼 기울어지며 위로 떠오릅니다 */
+.hero__pill .pill {
+  transform-origin: 50% 60%;
+  cursor: default;
+  transition:
+    opacity 0.8s var(--ease-out) var(--delay, 0s),
+    translate 0.9s var(--ease-out) var(--delay, 0s),
+    scale 0.9s var(--ease-spring) var(--delay, 0s),
+    transform 0.5s var(--ease-spring),
+    box-shadow 0.35s var(--ease-out);
+}
+
+.hero__pill:hover,
+.hero__pill:focus-within {
+  z-index: 3;
+}
+
+.hero__pill:hover .pill {
+  transform: translateY(calc(-20 * var(--u) - 4px)) rotate(var(--hover-r, 3.91deg));
+  box-shadow: 0 14px 30px rgb(0 0 0 / 0.35);
+}
+
+/* 이미 기울어진 가운데 알약은 조금 더 떠오르기만 */
+.hero__pill--top:hover .pill {
+  transform: translateY(calc(-14 * var(--u) - 4px)) rotate(1.5deg) scale(1.03);
+}
+
+/* 기기 + 라벨 무대 (피그마 y=618 부터) */
+.hero__stage {
+  height: calc(713 * var(--u));
+  margin-top: calc(74 * var(--u));
+}
+
+.hero__device {
+  height: auto;
+  pointer-events: none;
+}
+
+.hero__label {
+  z-index: 3;
+  animation: bob-t 5s var(--ease-in-out) var(--bob, 0s) infinite;
+}
+
+/* 공통: 둥실둥실 (translate 속성용 / transform 용) */
+@keyframes bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+@keyframes bob-t {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* 좁은 화면: 디자인처럼 세 알약을 가운데에 붙여서(살짝 겹치게) 한 줄로 */
+@media (max-width: 599px) {
+  .hero__pills {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: auto;
+    margin-top: 18px;
+    padding: 12px 8px 4px;
+  }
+
+  .hero__stage {
+    margin-top: 28px;
+  }
+
+  .hero__pill {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: translateY(var(--my, 0px)) rotate(var(--r, 0deg));
+  }
+
+  .hero__pill:nth-child(2) {
+    --my: -9px;
+    margin-inline: -10px;
+  }
+
+  .hero__pill:nth-child(3) {
+    --my: 3px;
+  }
+
+  .hero__pills .pill {
+    min-width: 0;
+    padding: 0 1.05em;
+    font-size: 12.5px;
+  }
+
+  .hero__pill:hover .pill {
+    transform: translateY(-8px) rotate(var(--hover-r, 3.91deg));
+  }
+
+  .hero__pill--top:hover .pill {
+    transform: translateY(-5px) rotate(1.5deg) scale(1.03);
+  }
+}

@@ -1,0 +1,80 @@
+/* =========================================================
+   상단 플로팅 바 — "지금 N명의 사장님이 관심있게 보고 있어요"
+   ========================================================= */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-topbar);
+  background: var(--grey-900);
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: var(--topbar-h);
+  padding: 10px;
+  overflow: hidden;
+}
+
+/* 항상 한 줄. 휴대폰 글자 크기 설정이 크거나 화면이 좁아 넘치면
+   view-counter.js 가 --fit(1 = 원래 크기)을 넘치는 만큼만 줄입니다 */
+.topbar__text {
+  font-weight: 600;
+  font-size: calc(var(--fit, 1) * max(14px, calc(24 * var(--u))));
+  white-space: nowrap;
+  line-height: 1.2;
+  color: var(--grey-50);
+  text-align: center;
+}
+
+.topbar__count {
+  display: inline-block;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(90deg, var(--blue-500) 0%, var(--blue-100) 46%, var(--blue-500) 92%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: count-shine 2.6s linear infinite;
+}
+
+/* 그라디언트가 왼쪽으로 계속 흘러갑니다 (한 칸 = 200% 이동이라 끊김 없음) */
+@keyframes count-shine {
+  from {
+    background-position: 0% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.topbar__fire {
+  flex: none;
+  width: max(20px, calc(30 * var(--u)));
+  height: auto;
+  transform-origin: 50% 90%;
+  animation: flicker 1.6s var(--ease-in-out) infinite;
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    transform: scale(1) rotate(0);
+  }
+
+  25% {
+    transform: scale(1.08, 0.94) rotate(-4deg);
+  }
+
+  50% {
+    transform: scale(0.96, 1.07) rotate(3deg);
+  }
+
+  75% {
+    transform: scale(1.05, 0.97) rotate(-2deg);
+  }
+}
