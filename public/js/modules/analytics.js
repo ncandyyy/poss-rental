@@ -4,6 +4,7 @@
  * - GA4: window.gtag
  * - Meta 픽셀: window.fbq
  * - 네이버 전환 추적: window.wcs (공통 스크립트는 index.html 맨 아래, 계정 ID s_2bd1a5b078d9)
+ * - 당근 픽셀: window.karrotPixel (기본 코드는 index.html <head>, 방문 ViewPage 는 거기서 보냄)
  * 아무것도 설치되어 있지 않으면(광고 차단 등) 조용히 무시합니다.
  */
 export function track(event, params = {}) {
@@ -14,6 +15,10 @@ export function track(event, params = {}) {
     // 네이버 신청완료(lead) 전환: 신청이 시트에 실제로 접수된 뒤 한 번만 보냅니다 (form.js)
     if (event === "lead_submit" && window.wcs && typeof window.wcs.trans === "function") {
       window.wcs.trans({ type: "lead" });
+    }
+    // 당근 신청완료(Lead) 전환: 네이버와 같은 시점(시트 접수 성공 후 한 번)
+    if (event === "lead_submit" && window.karrotPixel && typeof window.karrotPixel.track === "function") {
+      window.karrotPixel.track("Lead");
     }
   } catch {
     /* ignore */

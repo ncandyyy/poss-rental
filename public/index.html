@@ -63,6 +63,27 @@
     <link rel="stylesheet" href="css/sections/footer.css" />
 
     <script type="module" src="js/main.js"></script>
+
+    <!-- Danggeun Market Code (당근 픽셀: 방문 ViewPage)
+         신청완료(Lead) 전환은 여기서 바로 보내지 않고, 신청이 시트에 실제로 접수된 순간
+         js/modules/analytics.js 에서 karrotPixel.track('Lead') 로 보냅니다. -->
+    <script>
+      (function (w, d) {
+        if (w.karrotPixel) return;
+        var k = { stub: true, queue: [] };
+        k.init = function () { k.queue.push(['init', arguments, Date.now()]); };
+        k.track = function () { k.queue.push(['track', arguments, Date.now()]); };
+        w.karrotPixel = k;
+        var s = d.createElement('script');
+        s.async = true;
+        s.src = 'https://karrot-pixel.business.daangn.com/karrot-pixel.js';
+        var f = d.getElementsByTagName('script')[0];
+        f && f.parentNode ? f.parentNode.insertBefore(s, f) : d.head.appendChild(s);
+      })(window, document);
+      window.karrotPixel.init('1795058294605203001');
+      window.karrotPixel.track('ViewPage');
+    </script>
+    <!-- End Danggeun Market Code -->
   </head>
 
   <body>

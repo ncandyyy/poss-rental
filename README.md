@@ -93,4 +93,5 @@ npx serve public
 - [ ] 실제 도메인이 정해지면 `index.html` 의 canonical · og:url · og:image 주소 변경 (지금은 `poss-rental.netlify.app` 으로 가정)
 - [ ] 공유 미리보기 이미지 확인 (`assets/images/og/og-image.png`, 1200×630 — 히어로 문구로 임시 제작)
 - [ ] 광고 링크에 UTM 붙이기 (예: `?utm_source=daangn&utm_campaign=1030`) → 시트/슬랙에 유입 경로가 같이 기록됨
+- [x] 당근 전환 추적: 기본 코드(`index.html` `<head>`, 픽셀 ID `1795058294605203001`, 방문 ViewPage) + 신청완료(Lead)는 신청이 실제로 접수됐을 때 `js/modules/analytics.js` 에서 전송
 - [ ] (선택) GA4 / GTM / 메타 픽셀 설치 시 `form_start`, `form_step`, `lead_submit`, `cta_click` 이벤트가 자동 전송됨
